@@ -85,6 +85,8 @@ class Product(ModelClass):
     barCode = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     price = models.FloatField(default=0)
+    retail_price = models.FloatField(default=0)
+    wholesale_price = models.FloatField(default=0)
     stock = models.IntegerField(default=0)
     lastPurchase = models.DateField(null=True, blank=True)
 
