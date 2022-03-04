@@ -76,7 +76,7 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['code', 'barCode', 'description', 'status',
-                  'price', 'stock', 'lastPurchase', 'brand',
+                  'price', 'stock', 'wholesale_price', 'retail_price', 'lastPurchase', 'brand',
                   'subcategory', 'measurementUnits']
         exclude = ['creationDate', 'modificationDate',
                    'userModifier', 'userCreator']

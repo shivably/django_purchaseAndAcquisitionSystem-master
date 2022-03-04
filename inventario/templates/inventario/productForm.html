@@ -52,6 +52,18 @@
                                                 <div class="col-md-6">{{ form.stock }}</div>    
                                             </div>                            
                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="col-md-6">{{ form.retail_price.label }}</div>
+                                                <div class="col-md-6">{{ form.retail_price }}</div>
+                                            </div>
+                
+                                            <div class="col-md-6">
+                                                <div class="col-md-6">{{ form.wholesale_price.label }}</div>
+                                                <div class="col-md-6">{{ form.wholesale_price }}</div>    
+                                            </div>                            
+                                        </div>
                 
                                         <div class="row">
                                             <div class="col-md-6">
@@ -112,6 +124,20 @@
             </div>
     </div>
 <script>
+    var price_updated_once = false;
+    $(document).ready(function () {
+        function onchange() {
+            if(!price_updated_once){
+                var price = $('#id_price');
+                var retail_price = $('#id_retail_price');
+                var wholesale_price = $('#id_wholesale_price');
+                retail_price.val(price.val());
+                wholesale_price.val(price.val());
+                price_updated_once = true;
+            }
+        }
+        $('#id_price').on('change', onchange);
+    });
     $(function(){
         $("#id_category").val("{{ obj.subcategory.category.id }}").change();
         $("#id_subcategory").val("{{ obj.subcategory.id }}").change();
