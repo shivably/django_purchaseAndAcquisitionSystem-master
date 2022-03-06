@@ -12,7 +12,8 @@ from django.db.models import Q
 
 class Stock(APIView):
     def get(self, request):
-        product = Product.objects.filter(stock__gt=0)
+        # product = Product.objects.filter(stock__gt=0)
+        product = Product.objects.exclude(stock=0)
         data = StockSerializer(product, many=True).data
         return Response(data)
 
