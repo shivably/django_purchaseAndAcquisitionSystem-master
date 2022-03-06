@@ -86,44 +86,66 @@
 	    
 	    <h3>Stock</h3>
 	    
-	    <table class="table table-condensed table-bordered table-hover small">
+	    <table id="stock" class="table table-condensed table-bordered table-hover small">
 	        <thead>
 	           <tr>
-	               <th>Name</th>
-	               <th>Available</th>
+	               <th>Description</th>
+	               <th>Stock</th>
 	           </tr>
 	        </thead>
 	        <tbody>
-	            
-	            <tr>
-	                <td>
-	                    Company 1
-	                </td>
-	                <td>
-	                    $ 350 k
-	                </td>
-	            
-	            </tr>
-	            
-	            
-
-	        
-	            <tr >
-	               
-	                
-	                <td>
-	                    Customer 4
-	                </td>
-	                <td>$ 205 k</td>
-	                
-	            </tr>
-
-	            
 	        </tbody>
-	        
 	    </table>
 	    
     </div>
 </div>
 </div>
 {% endblock %}
+{% block js_page %}
+<script>
+    $(document).ready(function() {
+        var url = "{% url 'api:productStock' %}";
+        // $('#stock').DataTable({
+        //     "type": "GET",
+        //     "ajax": url,
+        //     "dataType": 'json',
+        //     "dataSrc": ""
+        // });
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: 'json',
+
+            success: function (obj, textstatus) {
+
+                var dataSet = new Array;
+                if (!('error' in obj)) {
+                    $.each(obj, function (index, value) {
+                        var tempArray = new Array;
+                        for (var o in value) {
+                            tempArray.push(value[o]);
+                        }
+                        dataSet.push(tempArray);
+                    })
+
+                    $('#stock').DataTable({
+                        data: dataSet,
+                        columns: [
+                            { title: "Name" },
+                            { title: "Stock" }
+                        ]
+                    });
+                }
+                else {
+                    alert(obj.error);
+                }
+            },
+            error: function (obj, textstatus) {
+                alert(obj.msg);
+            }
+            });
+
+    } );
+</script>
+{% endblock js_page %}

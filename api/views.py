@@ -4,10 +4,17 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
-from .serializers import ProductSerializer, CustomerSerializer
+from .serializers import ProductSerializer, CustomerSerializer, StockSerializer
 from inventario.models import Product
 from facturacion.models import Customer
 from django.db.models import Q
+
+
+class Stock(APIView):
+    def get(self, request):
+        product = Product.objects.filter(stock__gt=0)
+        data = StockSerializer(product, many=True).data
+        return Response(data)
 
 class ProductList(APIView):
     def get(self, request):
