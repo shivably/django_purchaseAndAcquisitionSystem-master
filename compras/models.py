@@ -52,6 +52,10 @@ class AcquisitionHeader(ModelClass):
         return '{}'.format(self.observation)
     def save(self):
         self.observation = self.observation.upper()
+        if self.subtotal is None:
+            self.subtotal = 0
+        if self.discount is None:
+            self.discount = 0
         self.total = self.subtotal - self.discount
         super(AcquisitionHeader, self).save()
     class Meta:

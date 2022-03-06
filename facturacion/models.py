@@ -6,11 +6,13 @@ from bases.models import ModelClass, ModelClass2
 from inventario.models import Product
 
 class Customer(ModelClass):
-    NAT = 'Natural'
-    JUR = 'Juristic'
+    WHOLESALE = 'Wholesale'
+    RETAIL = 'Retail'
+    SALESMAN  = 'Salesman' 
     CUSTOMER_TYPE = [
-        (NAT, 'Natural'),
-        (JUR, 'Juristic')
+        (WHOLESALE, 'Wholesale'),
+        (RETAIL, 'Retail'),
+        (SALESMAN, 'Salesman')
     ]
     names = models.CharField(max_length=100) 
     lastNames = models.CharField(max_length=100)
@@ -21,8 +23,9 @@ class Customer(ModelClass):
     customerType = models.CharField(
         max_length=10,
         choices=CUSTOMER_TYPE,
-        default=NAT
+        default=SALESMAN
     )
+    distributor = models.ForeignKey("self", on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
         return '{} {}'.format(self.lastNames, self.names)
     def save(self):
