@@ -40,7 +40,7 @@
                                     <td>
                                         {% if item.stock > 0 and item.status %}
                                         <button class="btn btn-warning btn-circle" id="btnSelect" 
-                                        onclick="selectProduct({{ item.id }},'{{ item.code }}','{{ item.description }}',{{ item.price }})">
+                                        onclick="selectProduct({{ item.id }},'{{ item.code }}','{{ item.description }}',{{ item.price }}, {{ item.retail_price }}, {{ item.wholesale_price }})">
                                             <i class="far fa-hand-pointer"></i>
                                         </button>
                                         {% endif %}
@@ -80,13 +80,33 @@
         });
     });
     $('#tblProduct').bootstrapTable();
-    function selectProduct(id, code, description, price){
-        $("#code").val(code);
-        $("#description").val(description);
-        $("#price").val(price);
-        $("#btnCancel").click();
-        $("#code").select();
-        $("#code").focus();
+    function selectProduct(id, code, description, price, retail_price, wholesale_price){
+        customer_id = $('#headerCustomer').val();
+        customer_price = price;
+        var path = '/api/v1/customer/'+customer_id
+        if(customer_id){
+            $.ajax({
+                type:"GET",
+                url:path,
+                success:function(r){
+                    if (r.customerType == 'Wholesale'){
+                        customer_price = wholesale_price;
+                    }
+                    $("#code").val(code);
+                    $("#description").val(description);
+                    $("#price").val(customer_price);
+                    $("#btnCancel").click();
+                    $("#code").select();
+                    $("#code").focus();
+                },
+                error: function(a, b, c){
+                    console.log(a);
+                    if (a.status==404){
+                        message("Customer #" + id + " has not found or does not exist");
+                    }
+                }
+            });
+        }   
     }
 </script>
 {% endblock %}
