@@ -41,6 +41,7 @@ class BillingHeader(ModelClass2):
     subtotal = models.FloatField(default=0)
     discount = models.FloatField(default=0)
     total = models.FloatField(default=0)
+    box = models.IntegerField(default=1)
     def __str__(self):
         return '{}'.format(self.id)
     def save(self):
