@@ -63,7 +63,7 @@ class BillingDetail(ModelClass2):
     discount = models.FloatField(default=0)
     total = models.FloatField(default=0)
     def __str__(self):
-        return '{}'.format(self.product)
+        return '{}-({})'.format(self.product,self.amount)
     def save(self):
         self.subtotal = float(float(int(self.amount)) * float(self.price))
         self.total = self.subtotal - float(self.discount)
