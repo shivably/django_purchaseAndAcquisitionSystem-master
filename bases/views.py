@@ -34,7 +34,7 @@ class Home(LoginRequiredMixin, generic.TemplateView):
         context['total_product'] = Product.objects.count()
         context['total_customer'] = Customer.objects.count()
         context['total_purchase_invoice'] = AcquisitionHeader.objects.count()
-        context['total_sales_invoice'] = AcquisitionHeader.objects.count()
+        context['total_sales_invoice'] = BillingHeader.objects.count()
         return context
 
 class HomeNoPermission(generic.TemplateView):
