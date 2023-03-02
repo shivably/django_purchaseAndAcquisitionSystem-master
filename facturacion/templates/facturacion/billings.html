@@ -259,7 +259,7 @@
                       <button
                         type="button"
                         class="btn btn-danger btn-circle"
-                        onclick="deleteDetail({{ item.id }})"
+                        onclick="deleteDetail('{{ item.id }}')"
                       >
                         <i class="fas fa-trash"></i>
                       </button>
@@ -382,7 +382,7 @@
       $("#date").val("{{ head.date|date:'Y-m-d' }}");
       $("#subtotal").val("{{ head.subtotal }}");
       $("#discount").val("{{ head.discount }}");
-      $("#total").val({{ head.total }});
+      $("#total").val('{{ head.total }}');
   });
   function deleteDetail(id){
       $.confirm({

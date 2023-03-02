@@ -2,7 +2,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h5 class="m-0 font-weight-bold text-primary">Customer List</h5>
-        <!--<div class="dropdown no-arrow">
+        <div class="dropdown no-arrow">
             Actions
             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -11,14 +11,14 @@
                 <div class="dropdown-header">Actions</div>
                 <a class="dropdown-item" onclick="return openModal('{% url 'facturacion:newCustomer' %}')" href="#"><i class="far fa-calendar-plus"></i> New</a>
             </div>
-        </div>-->
+        </div>
     </div>
     <div class="card-body">
         {% if not obj %}
         <div class="alert alert-info">Empty</div>
         {% else %}
         <div class="buttons-toolbar">
-            <a class="btn" onclick="return openModal('{% url 'facturacion:newCustomer' %}')" href="#"><i class="fa fa-plus"></i> New</a>
+            <a class="btn" onclick="return openModal('{% url 'facturacion : newCustomer' %}')" href="#"><i class="fa fa-plus"></i> New</a>
         </div>
         <table 
             data-toggle="table" 
@@ -46,7 +46,7 @@
                     <td>{{ item.customerType }}</td>
                     <td>{{ item.phone }}</td>
                     <td>
-                        <div onclick="deactivate({{ item.id }})">
+                        <div onclick="deactivate('{{ item.id }}')">
                             {% if item.status %}
                                 <i class="far fa-thumbs-up text-success"></i>
                             {% else %}

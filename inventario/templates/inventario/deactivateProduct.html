@@ -40,7 +40,7 @@
 
         $("#btnDeactivate").click(function(e){
             e.preventDefault();
-            var id = {{ obj.id }};
+            var id = '{{ obj.id }}';
             var template = "{% url 'inventario:deactivateProduct' obj.id %}";
             var data = {"id": id};
             data = JSON.stringify(data);
